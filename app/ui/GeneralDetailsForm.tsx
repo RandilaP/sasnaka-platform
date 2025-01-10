@@ -26,9 +26,59 @@ import {
   SelectValue,
   SelectTrigger,
 } from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { ArrowRight } from "lucide-react";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+const formSchema = z.object({
+  name: z.string({
+    required_error: "Please enter your name with initials",
+  }),
+  fname: z.string({
+    required_error: "Please enter your first name",
+  }),
+  lname: z.string({ required_error: "Please enter your last name" }),
+  dob: z.date({ required_error: "Please select your date of birth" }),
+  gender: z.enum(["male", "female"], {
+    required_error: "Please select your gender",
+  }),
+  nic: z.string({
+    required_error: "NIC number is required",
+  }),
+  language: z.string({
+    required_error: "Please select your most preffered language",
+  }),
+  address: z.string({
+    required_error: "Please enter your personal address",
+  }),
+  district: z.string({
+    required_error: "Please select your current district",
+  }),
+  city: z.string({
+    required_error: "Please enter your nearest city",
+  }),
+  phone: z.string({
+    required_error: "Please enter your contact number",
+  }),
+  email: z
+    .string({
+      required_error: "Please enter your email address",
+    })
+    .email(),
+});
 
 function GeneralDetailsForm() {
   const [date, setDate] = React.useState<Date>();
@@ -63,146 +113,320 @@ function GeneralDetailsForm() {
     "Kegalle",
   ];
 
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+  });
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+  }
+
   return (
     <Card className=" p-4 mt-9 w-full max-w-screen-md">
       <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-2">
-            <div className="space-y-2 p-2">
-              <Label htmlFor="name">Name With Initials</Label>
-              <CardDescription>Enter your name with initials </CardDescription>
-              <Input id="name" type="text" placeholder="Name" />
-            </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="grid w-full items-center gap-2">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel htmlFor="name">Name With Initials</FormLabel>
+                    <FormDescription>
+                      Enter your name with initials{" "}
+                    </FormDescription>
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="Name"
+                      {...field}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label htmlFor="fname">First Name</Label>
-              <CardDescription>Enter your first name</CardDescription>
-              <Input id="fname" type="text" placeholder="First Name" />
-            </div>
+              <FormField
+                control={form.control}
+                name="fname"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel htmlFor="fname">First Name</FormLabel>
+                    <FormDescription>Enter your first name</FormDescription>
+                    <Input
+                      id="fname"
+                      type="text"
+                      placeholder="First Name"
+                      {...field}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label htmlFor="lname">Last Name</Label>
-              <CardDescription>Enter your last name </CardDescription>
-              <Input id="lname" type="text" placeholder="Last Name" />
-            </div>
+              <FormField
+                control={form.control}
+                name="lname"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel htmlFor="lname">Last Name</FormLabel>
+                    <FormDescription>Enter your last name </FormDescription>
+                    <Input
+                      id="lname"
+                      type="text"
+                      placeholder="Last Name"
+                      {...field}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label>Gender</Label>
-              <RadioGroup className="flex ">
-                <div className="flex items-center">
-                  <RadioGroupItem value="male" id="r1" />
-                  <CardDescription className="ml-1">Male</CardDescription>
-                </div>
-                <div className="flex items-center ml-9">
-                  <RadioGroupItem value="female" id="r2" />
-                  <CardDescription className="ml-1">Female</CardDescription>
-                </div>
-              </RadioGroup>
-            </div>
+              <FormField
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel>Gender</FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        className="flex "
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormItem className="flex items-end">
+                          <FormControl>
+                            <RadioGroupItem value="male" id="male" />
+                          </FormControl>
+                          <FormLabel className="ml-1 font-normal text-gray-500" htmlFor="male">
+                            Male
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-end ml-9">
+                          <RadioGroupItem value="female" id="female" />
+                          <FormLabel className="ml-1 font-normal text-gray-500" htmlFor="female">
+                            Female
+                          </FormLabel>
+                        </FormItem>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label htmlFor="dob">Date of Birth</Label>
-              <CardDescription>Select your date of birth</CardDescription>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "w-full justify-between text-left font-normal",
-                      !date && "text-muted-foreground"
-                    )}
-                  >
-                    {date ? format(date, "PPP") : <span>Pick a date</span>}
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
+              <FormField
+                control={form.control}
+                name="dob"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel htmlFor="dob">Date of Birth</FormLabel>
+                    <FormDescription>Select your date of birth</FormDescription>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label htmlFor="nic">NIC number</Label>
-              <CardDescription>Enter your NIC number</CardDescription>
-              <Input id="nic" type="text" placeholder="NIC number" />
-            </div>
+              <FormField
+                control={form.control}
+                name="nic"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel htmlFor="nic">NIC number</FormLabel>
+                    <FormDescription>Enter your NIC number</FormDescription>
+                    <Input
+                      id="nic"
+                      type="text"
+                      placeholder="NIC number"
+                      {...field}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label>What is your most preffered language</Label>
-              <CardDescription>
-                Choose your most preffered language
-              </CardDescription>
-              <Select>
-                <SelectTrigger className="text-gray-500">
-                  <SelectValue placeholder="Language" />
-                </SelectTrigger>
-                <SelectContent>
-                  {languages.map((language) => (
-                    <SelectItem key={language} value={language.toLowerCase()}>
-                      {language}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+              <FormField
+                control={form.control}
+                name="language"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel>What is your most preffered language</FormLabel>
+                    <FormDescription>
+                      Choose your most preffered language
+                    </FormDescription>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger className="text-gray-500">
+                        <SelectValue placeholder="Language" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {languages.map((language) => (
+                          <SelectItem
+                            key={language}
+                            value={language.toLowerCase()}
+                          >
+                            {language}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label htmlFor="address">Personal Address</Label>
-              <CardDescription>Enter your personal address</CardDescription>
-              <Input id="address" type="text" placeholder="Address" />
-            </div>
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel htmlFor="address">Personal Address</FormLabel>
+                    <FormDescription>
+                      Enter your personal address
+                    </FormDescription>
+                    <Input
+                      id="address"
+                      type="text"
+                      placeholder="Address"
+                      {...field}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label>District</Label>
-              <CardDescription>Choose your current district</CardDescription>
-              <Select>
-                <SelectTrigger className="text-gray-500">
-                  <SelectValue placeholder="District" />
-                </SelectTrigger>
-                <SelectContent>
-                  {districts.map((district) => (
-                    <SelectItem key={district} value={district.toLowerCase()}>
-                      {district}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+              <FormField
+                control={form.control}
+                name="district"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel>District</FormLabel>
+                    <FormDescription>
+                      Choose your current district
+                    </FormDescription>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger className="text-gray-500">
+                        <SelectValue placeholder="District" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {districts.map((district) => (
+                          <SelectItem
+                            key={district}
+                            value={district.toLowerCase()}
+                          >
+                            {district}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label htmlFor="postal">Nearest City</Label>
-              <CardDescription>
-                Mention nearest city that you are living
-              </CardDescription>
-              <Input id="postal" type="text" placeholder="Postal Code" />
-            </div>
+              <FormField
+                control={form.control}
+                name="city"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel htmlFor="city">Nearest City</FormLabel>
+                    <FormDescription>
+                      Mention nearest city that you are living
+                    </FormDescription>
+                    <Input
+                      id="city"
+                      type="text"
+                      placeholder="Nearest city"
+                      {...field}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label htmlFor="phone">Contact Number</Label>
-              <CardDescription>Enter your contact number</CardDescription>
-              <Input id="phone" type="text" placeholder="Contact Number" />
-            </div>
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel htmlFor="phone">Contact Number</FormLabel>
+                    <FormDescription>Enter your contact number</FormDescription>
+                    <Input
+                      id="phone"
+                      type="text"
+                      placeholder="Contact Number"
+                      {...field}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="space-y-2 p-2">
-              <Label htmlFor="email">Email Address</Label>
-              <CardDescription>Enter your email address</CardDescription>
-              <Input id="email" type="email" placeholder="Email Address" />
-            </div>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 p-2">
+                    <FormLabel htmlFor="email">Email Address</FormLabel>
+                    <FormDescription>Enter your email address</FormDescription>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="Email Address"
+                      {...field}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <CardFooter className="flex justify-end mt-2">
-              <Button type="submit">
-                Next
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </CardFooter>
-          </div>
-        </form>
+              <CardFooter className="flex justify-end mt-2">
+                <Button type="submit">
+                  Next
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardFooter>
+            </div>
+          </form>
+        </Form>
       </CardContent>
     </Card>
   );

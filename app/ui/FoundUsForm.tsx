@@ -58,7 +58,7 @@ const aboutUs = [
 ] as const;
 
 const formSchema = z.object({
-  rate_leadership: z.enum(["yes","no"], {
+  new_member: z.enum(["yes","no"], {
     message: "You need to select an answer",
   }),
   aboutUs: z
@@ -86,7 +86,7 @@ function FoundUsForm() {
             <div className="grid w-full items-center gap-2">
               <FormField
                 control={form.control}
-                name="rate_leadership"
+                name="new_member"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
                     <FormLabel htmlFor="leadership">
