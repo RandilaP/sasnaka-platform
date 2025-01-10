@@ -42,6 +42,7 @@ import { ArrowRight } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { addGeneralDetails } from "../actions/actions";
 
 const formSchema = z.object({
   name: z.string({
@@ -116,9 +117,8 @@ function GeneralDetailsForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await addGeneralDetails(values);
     console.log(values);
   }
 

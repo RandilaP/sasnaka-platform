@@ -27,37 +27,36 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { addEducationalDetails } from "../actions/actions";
 
 const formSchema = z.object({
   school: z.string({
     required_error: "Please enter your school name",
   }),
-  alYear: z.string({
+  al_year: z.string({
     required_error: "Please enter your A/L year",
   }),
   stream: z.enum(
     ["physicalScience", "bioScience", "commerce", "arts", "technology"],
-    { message: "Please select your A/L stream" }
+    { required_error: "Please select your A/L stream" }
   ),
   shy: z.string({
     required_error: "Please enter your last shy",
   }),
-  indexNumber: z.string().optional(),
-  status: z.enum(["student","undergraduate","graduate"],{
+  index_number: z.string().optional(),
+  status: z.enum(["student", "undergraduate", "graduate"], {
     required_error: "Please select your educational status",
   }),
-  otherQualification: z.string({
-    required_error: "Please enter your other qualifications",
-  }),
+  other_qualification: z.string().optional(),
 });
 
 function EducationalDetailsForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+    await addEducationalDetails(values);
     console.log(values);
   }
 
@@ -91,7 +90,7 @@ function EducationalDetailsForm() {
 
               <FormField
                 control={form.control}
-                name="alYear"
+                name="al_year"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
                     <FormLabel htmlFor="alYear">Advanced Level Year</FormLabel>
@@ -212,7 +211,7 @@ function EducationalDetailsForm() {
 
               <FormField
                 control={form.control}
-                name="indexNumber"
+                name="index_number"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
                     <FormLabel htmlFor="IndexNumber">
@@ -244,10 +243,10 @@ function EducationalDetailsForm() {
                       >
                         <FormItem className="flex items-end">
                           <FormControl>
-                            <RadioGroupItem value="student" id="r6" />
+                            <RadioGroupItem value="student" id="student" />
                           </FormControl>
                           <FormLabel
-                            htmlFor="r6"
+                            htmlFor="student"
                             className="ml-1 font-normal text-gray-500"
                           >
                             Student (after A/L)
@@ -255,10 +254,13 @@ function EducationalDetailsForm() {
                         </FormItem>
                         <FormItem className="flex items-end">
                           <FormControl>
-                            <RadioGroupItem value="undergraduate" id="r7" />
+                            <RadioGroupItem
+                              value="undergraduate"
+                              id="undergraduate"
+                            />
                           </FormControl>
                           <FormLabel
-                            htmlFor="r7"
+                            htmlFor="undergraduate"
                             className="ml-1 font-normal text-gray-500"
                           >
                             Undergraduate
@@ -266,10 +268,10 @@ function EducationalDetailsForm() {
                         </FormItem>
                         <FormItem className="flex items-end">
                           <FormControl>
-                            <RadioGroupItem value="graduate" id="r8" />
+                            <RadioGroupItem value="graduate" id="graduate" />
                           </FormControl>
                           <FormLabel
-                            htmlFor="r8"
+                            htmlFor="graduate"
                             className="ml-1 font-normal text-gray-500"
                           >
                             Graduate
@@ -283,7 +285,7 @@ function EducationalDetailsForm() {
 
               <FormField
                 control={form.control}
-                name="otherQualification"
+                name="other_qualification"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
                     <FormLabel htmlFor="otherQualification">
