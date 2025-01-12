@@ -29,6 +29,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { addSkillsDetails } from "../lib/actions";
 
 const aestheticSkills = [
   {
@@ -115,39 +116,32 @@ const formSchema = z.object({
   rate_leadership: z.enum(["1", "2", "3", "4", "5"], {
     message: "Please rate your leadership skills",
   }),
-  leadership_experience: z.string().min(10, {
-    message: "Please provide at least 10 characters",
-  }),
-  aestheticSkills: z
+  leadership_experience: z.string().optional(),
+  aesthetic_skills: z
     .array(z.string())
     .refine((value) => value.some((item) => item), {
       message: "You have to select at least one item.",
     }),
-  computerSkills: z
+  computer_skills: z
     .array(z.string())
     .refine((value) => value.some((item) => item), {
       message: "You have to select at least one item.",
     }),
-  mediaSkills: z
+  media_skills: z
     .array(z.string())
     .refine((value) => value.some((item) => item), {
       message: "You have to select at least one item.",
     }),
-  acheivements: z.string().min(10, {
-    message: "Please provide at least 10 characters",
-  }),
-  interestedAreas: z.string().min(10, {
-    message: "Please provide at least 10 characters",
-  }),
+  acheivements: z.string().optional(),
+  interested_areas: z.string().optional(),
 });
 
 function SkillsDetailsForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await addSkillsDetails(values);
     console.log(values);
   }
 
@@ -171,7 +165,7 @@ function SkillsDetailsForm() {
                 name="rate_leadership"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
-                    <FormLabel htmlFor="leadership">
+                    <FormLabel htmlFor="rate_leadership">
                       Leadership skills
                     </FormLabel>
                     <FormDescription>
@@ -233,7 +227,7 @@ function SkillsDetailsForm() {
                 name="leadership_experience"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
-                    <FormLabel htmlFor="experience">
+                    <FormLabel htmlFor="leadership_experience">
                       Leadership experience
                     </FormLabel>
                     <FormDescription>
@@ -242,7 +236,7 @@ function SkillsDetailsForm() {
                       ability to lead and inspire others.{" "}
                     </FormDescription>
                     <Textarea
-                      id="experience"
+                      id="leadership_experience"
                       placeholder="Your answer"
                       {...field}
                       className="h-28"
@@ -254,7 +248,7 @@ function SkillsDetailsForm() {
 
               <FormField
                 control={form.control}
-                name="aestheticSkills"
+                name="aesthetic_skills"
                 render={() => (
                   <FormItem>
                     <div className="mb-4">
@@ -267,7 +261,7 @@ function SkillsDetailsForm() {
                       <FormField
                         key={item.id}
                         control={form.control}
-                        name="aestheticSkills"
+                        name="aesthetic_skills"
                         render={({ field }) => {
                           return (
                             <FormItem
@@ -304,7 +298,7 @@ function SkillsDetailsForm() {
 
               <FormField
                 control={form.control}
-                name="computerSkills"
+                name="computer_skills"
                 render={() => (
                   <FormItem>
                     <div className="mb-4">
@@ -317,7 +311,7 @@ function SkillsDetailsForm() {
                       <FormField
                         key={item.id}
                         control={form.control}
-                        name="computerSkills"
+                        name="computer_skills"
                         render={({ field }) => {
                           return (
                             <FormItem
@@ -354,7 +348,7 @@ function SkillsDetailsForm() {
 
               <FormField
                 control={form.control}
-                name="aestheticSkills"
+                name="media_skills"
                 render={() => (
                   <FormItem>
                     <div className="mb-4">
@@ -367,7 +361,7 @@ function SkillsDetailsForm() {
                       <FormField
                         key={item.id}
                         control={form.control}
-                        name="mediaSkills"
+                        name="media_skills"
                         render={({ field }) => {
                           return (
                             <FormItem
@@ -424,10 +418,10 @@ function SkillsDetailsForm() {
 
               <FormField
                 control={form.control}
-                name="interestedAreas"
+                name="interested_areas"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
-                    <FormLabel htmlFor="interestedAreas">
+                    <FormLabel htmlFor="interested_areas">
                       What are the interested area / areas, that you like to
                       improve / study further.   That will be help you to
                       develop your skills under expertise in particular areas as
@@ -435,7 +429,7 @@ function SkillsDetailsForm() {
                       MS Office, etc.){" "}
                     </FormLabel>
                     <Textarea
-                      id="interestedAreas"
+                      id="interested_areas"
                       placeholder="Your answer"
                       {...field}
                       className="h-28"

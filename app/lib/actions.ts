@@ -48,7 +48,7 @@ export async function addUndergraduateDetails(data: any) {
 
     try{
         await supabase.from('members').update({...data}).eq('user_id', userId)
-        redirectPath = '/forms/employment-details'
+        redirectPath = '/forms/skills-details'
     } catch (error) {
         redirectPath = '/'
         console.log('error', error)
@@ -65,7 +65,7 @@ export async function addSkillsDetails(data: any) {
 
     try{
         await supabase.from('members').update({...data}).eq('user_id', userId)
-        redirectPath = '/forms/employment-details'
+        redirectPath = '/forms/contact-details'
     } catch (error) {
         redirectPath = '/'
         console.log('error', error)
@@ -82,7 +82,7 @@ export async function addContactDetails(data: any) {
 
     try{
         await supabase.from('members').update({...data}).eq('user_id', userId)
-        redirectPath = '/forms/employment-details'
+        redirectPath = '/forms/found-us'
     } catch (error) {
         redirectPath = '/'
         console.log('error', error)
@@ -93,13 +93,28 @@ export async function addContactDetails(data: any) {
 export async function addFoundUsDetails(data: any) {
     let redirectPath = null
     const supabase = await createClient()
-    const { userId, redirectToSignIn } = await auth()
+    const { userId, redirectToSignIn, getToken } = await auth()
 
     if (!userId) return redirectToSignIn()
+    const token = await getToken()
 
     try{
+        // get the user profile image url from the clerk using it's backend apis
+        const response = await fetch('https://api.clerk.dev/v1/users/'+userId, {
+            headers: {
+                'Authorization': `Bearer ${process.env.CLERK_SECRET_KEY || ''}`
+            }
+        })
+        const userData = await response.json()
+        const profile_image_url = userData.profile_image_url
+        await supabase.from('members').update({...data, profile_image: profile_image_url}).eq('user_id', userId)
+    }
+    catch (error) {
+        console.log('error', error)
+    }
+    try{
         await supabase.from('members').update({...data}).eq('user_id', userId)
-        redirectPath = '/forms/employment-details'
+        redirectPath = '/forms/dashboard'
     } catch (error) {
         redirectPath = '/'
         console.log('error', error)

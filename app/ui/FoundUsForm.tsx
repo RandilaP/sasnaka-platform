@@ -29,6 +29,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { addFoundUsDetails } from "../lib/actions";
 
 const aboutUs = [
   {
@@ -61,7 +62,7 @@ const formSchema = z.object({
   new_member: z.enum(["yes","no"], {
     message: "You need to select an answer",
   }),
-  aboutUs: z
+  about_us: z
     .array(z.string())
     .refine((value) => value.some((item) => item), {
       message: "You have to select at least one item.",
@@ -73,8 +74,7 @@ function FoundUsForm() {
     resolver: zodResolver(formSchema),
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    addFoundUsDetails(values);
     console.log(values);
   }
 
@@ -121,7 +121,7 @@ function FoundUsForm() {
 
               <FormField
                 control={form.control}
-                name="aboutUs"
+                name="about_us"
                 render={() => (
                   <FormItem>
                     <div className="mb-4">
@@ -135,7 +135,7 @@ function FoundUsForm() {
                       <FormField
                         key={item.id}
                         control={form.control}
-                        name="aboutUs"
+                        name="about_us"
                         render={({ field }) => {
                           return (
                             <FormItem

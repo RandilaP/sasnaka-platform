@@ -27,7 +27,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { addEducationalDetails } from "../actions/actions";
+import { addEducationalDetails } from "../lib/actions";
 
 const formSchema = z.object({
   school: z.string({

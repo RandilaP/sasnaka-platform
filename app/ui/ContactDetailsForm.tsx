@@ -25,15 +25,16 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { addContactDetails } from "../lib/actions";
 
 const formSchema = z.object({
-  guardianName: z.string({
+  guardian_name: z.string({
     required_error: "Please enter your guardian's name",
   }),
-  guardianOccupation: z.string({
+  guardian_occupation: z.string({
     required_error: "Please enter your guardian's occupation",
   }),
-  guardianNumber: z.string({
+  guardian_number: z.string({
     required_error: "Please enter your guardian's contact number",
   }),
 });
@@ -42,9 +43,8 @@ function ContactDetailsForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await addContactDetails(values);
     console.log(values);
   }
 
@@ -56,16 +56,16 @@ function ContactDetailsForm() {
             <div className="grid w-full items-center gap-2">
               <FormField
                 control={form.control}
-                name="guardianName"
+                name="guardian_name"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
-                    <FormLabel htmlFor="guardianName">
+                    <FormLabel htmlFor="guardian_name">
                       Father's / Mother's / Guardian's Name
                     </FormLabel>
                     <FormDescription>
                       Mention name of your father, mother or guardian.
                     </FormDescription>
-                    <Input id="name" type="text" placeholder="Your answer" {...field} />
+                    <Input id="guardian_name" type="text" placeholder="Your answer" {...field} />
                     <FormMessage />
                   </FormItem>
                 )}
@@ -73,17 +73,17 @@ function ContactDetailsForm() {
 
               <FormField
                 control={form.control}
-                name="guardianOccupation"
+                name="guardian_occupation"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
-                    <FormLabel htmlFor="guardianOccupation">
+                    <FormLabel htmlFor="guardian_occupation">
                       Father’s / Mother’s / Guardian’s occupation
                     </FormLabel>
                     <FormDescription>
                       Mention occupation of your father, mother or guardian.{" "}
                     </FormDescription>
                     <Input
-                      id="occupation"
+                      id="guardian_occupation"
                       type="text"
                       placeholder="Your answer"
                       {...field}
@@ -95,17 +95,17 @@ function ContactDetailsForm() {
 
               <FormField
                 control={form.control}
-                name="guardianNumber"
+                name="guardian_number"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
-                    <FormLabel htmlFor="guardianNumber">
+                    <FormLabel htmlFor="guardian_number">
                       Father’s / Mother’s / Guardian’s contact number
                     </FormLabel>
                     <FormDescription>
                       Mention contact number of your father, mother or guardian.
                     </FormDescription>
                     <Input
-                      id="guardianNumber"
+                      id="guardian_number"
                       type="text"
                       placeholder="Contact number"
                       {...field}

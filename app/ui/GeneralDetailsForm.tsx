@@ -42,7 +42,7 @@ import { ArrowRight } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { addGeneralDetails } from "../actions/actions";
+import { addGeneralDetails } from "../lib/actions";
 
 const formSchema = z.object({
   name: z.string({

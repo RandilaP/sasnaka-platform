@@ -25,6 +25,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { addUndergraduateDetails } from "../lib/actions";
 
 const formSchema = z.object({
   university: z.string({
@@ -34,7 +35,7 @@ const formSchema = z.object({
     required_error: "Please enter your first name",
   }),
   degree: z.string({ required_error: "Please enter your last name" }),
-  academicYear: z.string({
+  academic_year: z.string({
     required_error: "NIC number is required",
   }),
 });
@@ -43,9 +44,8 @@ function UndergraduateDetailsForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await addUndergraduateDetails(values);
     console.log(values);
   }
 
@@ -53,7 +53,7 @@ function UndergraduateDetailsForm() {
     <Card className=" p-4 mt-9 w-full max-w-screen-md">
       <CardContent>
         <Form {...form}>
-          <form>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid w-full items-center gap-2">
               <FormField
                 control={form.control}
@@ -112,7 +112,7 @@ function UndergraduateDetailsForm() {
 
               <FormField
                 control={form.control}
-                name="academicYear"
+                name="academic_year"
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
                     <FormLabel htmlFor="academic-year">Academic Year</FormLabel>
