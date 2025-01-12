@@ -114,10 +114,20 @@ export async function addFoundUsDetails(data: any) {
     }
     try{
         await supabase.from('members').update({...data}).eq('user_id', userId)
-        redirectPath = '/forms/dashboard'
+        redirectPath = '/dashboard'
     } catch (error) {
         redirectPath = '/'
         console.log('error', error)
     }
+    redirect(redirectPath)
+}
+
+export async function clickOnLetsGo() {
+    let redirectPath = null
+    const { userId, redirectToSignIn } = await auth()
+
+    if (!userId) return redirectToSignIn()
+
+    redirectPath = '/dashboard'
     redirect(redirectPath)
 }

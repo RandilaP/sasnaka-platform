@@ -1,5 +1,6 @@
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import NavBar from "./ui/HomeNav";
 
 export default function RootLayout({
   children,
@@ -10,6 +11,7 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang="en">
       <body>
+      <NavBar />
         {children}
       </body>
     </html>
