@@ -28,7 +28,7 @@ export async function getPendingVolunteersData() {
   }
 }
 
-export async function changeVolunteerStatus(id: string, status: string) {
+export async function changeVolunteerStatus(id: number, status: string) {
     const supabase = await createClient();
     try {
         const response = await supabase.from("members").update({ application: status }).eq("id", id);

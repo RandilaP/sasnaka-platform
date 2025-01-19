@@ -24,9 +24,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { changeVolunteerStatus, getPendingVolunteersData } from "../lib/volunteerData";
 import { Button } from "@/components/ui/button";
 import {  CircleX } from "lucide-react";
-import Image from "next/image";
+import { VolunteerData } from "../lib/model";
 function VolunteerApprovalTable() {
-  const [volunteers, setVolunteers] = useState<any[]>([]);
+  const [volunteers, setVolunteers] = useState<VolunteerData[]>([]);
 
 
   useEffect(() => {
@@ -56,7 +56,7 @@ function VolunteerApprovalTable() {
         {volunteers.map((volunteer) => (
           <TableRow key={volunteer.id}>
             <TableCell>
-              <Image
+              <img
                 src={volunteer.profile_image}
                 alt={volunteer.name}
                 className="w-9 h-9 rounded-full"

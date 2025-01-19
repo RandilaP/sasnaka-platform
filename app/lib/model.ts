@@ -87,6 +87,7 @@ export interface VolunteerData{
     guardian_occupation: string,
     guardian_number: string,
     new_member: string,
-    about_us: string,
-
+    about_us: string[]
+    profile_image: string,
+    
 }
