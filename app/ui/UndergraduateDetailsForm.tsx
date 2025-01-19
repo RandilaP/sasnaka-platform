@@ -6,13 +6,10 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardDescription,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Form,
-  FormControl,
   FormDescription,
   FormField,
   FormItem,
@@ -70,6 +67,7 @@ function UndergraduateDetailsForm() {
                       placeholder="University"
                       {...field}
                     />
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -87,6 +85,7 @@ function UndergraduateDetailsForm() {
                       placeholder="Faculty"
                       {...field}
                     />
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -106,6 +105,7 @@ function UndergraduateDetailsForm() {
                       placeholder="Degree"
                       {...field}
                     />
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -123,7 +123,9 @@ function UndergraduateDetailsForm() {
                       placeholder="Academic year"
                       {...field}
                     />
+                    <FormMessage />
                   </FormItem>
+          
                 )}
               />
 

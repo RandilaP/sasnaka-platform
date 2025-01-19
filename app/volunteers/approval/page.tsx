@@ -1,6 +1,5 @@
 import React from 'react'
 import VolunteerApprovalTable from '../../ui/VolunteerApprovalTable'
-import { getVolunteersData } from '@/app/lib/volunteerData'
 
 function page() {
   

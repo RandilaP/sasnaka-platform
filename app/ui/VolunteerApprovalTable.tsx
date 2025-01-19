@@ -14,7 +14,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -24,9 +23,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { changeVolunteerStatus, getPendingVolunteersData } from "../lib/volunteerData";
 import { Button } from "@/components/ui/button";
-import { CircleOff, CircleX } from "lucide-react";
+import {  CircleX } from "lucide-react";
+import Image from "next/image";
 function VolunteerApprovalTable() {
   const [volunteers, setVolunteers] = useState<any[]>([]);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -55,7 +56,7 @@ function VolunteerApprovalTable() {
         {volunteers.map((volunteer) => (
           <TableRow key={volunteer.id}>
             <TableCell>
-              <img
+              <Image
                 src={volunteer.profile_image}
                 alt={volunteer.name}
                 className="w-9 h-9 rounded-full"
@@ -153,21 +154,21 @@ function VolunteerApprovalTable() {
                         <ul>
                           {volunteer.aesthetic_skills &&
                             volunteer.aesthetic_skills.map((skill: string) => (
-                              <li>{skill}</li>
+                              <li key={volunteer.id}>{skill}</li>
                             ))}
                         </ul>
                         <p className="font-semibold">Computer Skills</p>
                         <ul>
                           {volunteer.computer_skills &&
                             volunteer.computer_skills.map((skill: string) => (
-                              <li>{skill}</li>
+                              <li key={volunteer.id}>{skill}</li>
                             ))}
                         </ul>
                         <p className="font-semibold">Media Skills:</p>
                         <ul>
                           {volunteer.media_skills &&
                             volunteer.media_skills.map((skill: string) => (
-                              <li>{skill}</li>
+                              <li key={volunteer.id}>{skill}</li>
                             ))}
                         </ul>
                         <p className="font-semibold">Acheivements:</p>
@@ -196,7 +197,7 @@ function VolunteerApprovalTable() {
                           <ul>
                             {volunteer.about_us &&
                               volunteer.about_us.map((source: string) => (
-                                <li>{source}</li>
+                                <li key={volunteer.id}>{source}</li>
                               ))}
                           </ul>
                         </div>

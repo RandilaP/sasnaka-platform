@@ -6,12 +6,8 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardDescription,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -74,7 +70,7 @@ function FoundUsForm() {
     resolver: zodResolver(formSchema),
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
-    addFoundUsDetails(values);
+    addFoundUsDetails({ ...values });
     console.log(values);
   }
 

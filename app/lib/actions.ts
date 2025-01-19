@@ -3,9 +3,9 @@
 import { createClient } from "@/utils/supabase/server"
 import {auth} from '@clerk/nextjs/server'
 import { redirect } from "next/navigation"
+import { GeneralDetails, EducationalDetails,UndergraduateDetails,SkillDetails,GuardianDetails,FoundUsDetails } from "./model"
 
-
-export async function addGeneralDetails(data: any) {
+export async function addGeneralDetails(data: GeneralDetails) {
     let redirectPath = null
     const supabase = await createClient()
     const { userId, redirectToSignIn } = await auth()
@@ -22,7 +22,7 @@ export async function addGeneralDetails(data: any) {
     redirect(redirectPath)
 }
 
-export async function addEducationalDetails(data: any) {
+export async function addEducationalDetails(data: EducationalDetails) {
     let redirectPath = null
     const supabase = await createClient()
     const { userId, redirectToSignIn } = await auth()
@@ -39,7 +39,7 @@ export async function addEducationalDetails(data: any) {
     redirect(redirectPath)
 }
 
-export async function addUndergraduateDetails(data: any) {
+export async function addUndergraduateDetails(data: UndergraduateDetails) {
     let redirectPath = null
     const supabase = await createClient()
     const { userId, redirectToSignIn } = await auth()
@@ -56,7 +56,7 @@ export async function addUndergraduateDetails(data: any) {
     redirect(redirectPath)
 }
 
-export async function addSkillsDetails(data: any) {
+export async function addSkillsDetails(data: SkillDetails) {
     let redirectPath = null
     const supabase = await createClient()
     const { userId, redirectToSignIn } = await auth()
@@ -73,7 +73,7 @@ export async function addSkillsDetails(data: any) {
     redirect(redirectPath)
 }
 
-export async function addContactDetails(data: any) {
+export async function addContactDetails(data: GuardianDetails) {
     let redirectPath = null
     const supabase = await createClient()
     const { userId, redirectToSignIn } = await auth()
@@ -90,13 +90,12 @@ export async function addContactDetails(data: any) {
     redirect(redirectPath)
 }
 
-export async function addFoundUsDetails(data: any) {
+export async function addFoundUsDetails(data: FoundUsDetails) {
     let redirectPath = null
     const supabase = await createClient()
-    const { userId, redirectToSignIn, getToken } = await auth()
+    const { userId, redirectToSignIn } = await auth()
 
     if (!userId) return redirectToSignIn()
-    const token = await getToken()
 
     try{
         // get the user profile image url from the clerk using it's backend apis

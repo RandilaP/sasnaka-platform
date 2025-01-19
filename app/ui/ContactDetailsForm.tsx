@@ -6,13 +6,10 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardDescription,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Form,
-  FormControl,
   FormDescription,
   FormField,
   FormItem,
@@ -60,7 +57,7 @@ function ContactDetailsForm() {
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
                     <FormLabel htmlFor="guardian_name">
-                      Father's / Mother's / Guardian's Name
+                      Father`&apos;`s ` Mother`&apos;`s / Guardian`&apos;`s Name
                     </FormLabel>
                     <FormDescription>
                       Mention name of your father, mother or guardian.

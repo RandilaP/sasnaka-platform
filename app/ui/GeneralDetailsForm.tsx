@@ -9,10 +9,8 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardDescription,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Popover,
@@ -82,7 +80,6 @@ const formSchema = z.object({
 });
 
 function GeneralDetailsForm() {
-  const [date, setDate] = React.useState<Date>();
 
   const languages = ["Sinhala", "Tamil", "English"];
 
@@ -118,7 +115,7 @@ function GeneralDetailsForm() {
     resolver: zodResolver(formSchema),
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await addGeneralDetails(values);
+    await addGeneralDetails({ ...values, dob: values.dob.toISOString() });
     console.log(values);
   }
 

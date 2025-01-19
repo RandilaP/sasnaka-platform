@@ -6,10 +6,8 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardDescription,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -56,7 +54,11 @@ function EducationalDetailsForm() {
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    await addEducationalDetails(values);
+    await addEducationalDetails({
+      ...values,
+      index_number: values.index_number ?? "",
+      other_qualification: values.other_qualification ?? "",
+    });
     console.log(values);
   }
 

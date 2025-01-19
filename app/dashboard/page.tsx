@@ -1,5 +1,5 @@
 import React from 'react'
-import { Calendar, Clock, Users, UserPlus, PlusCircle, Settings, Globe } from 'lucide-react';
+import { Calendar, Clock, Users, UserPlus, PlusCircle, Settings } from 'lucide-react';
 import Link from 'next/link';
 
 const DashboardPage = () => {
@@ -27,7 +27,7 @@ const DashboardPage = () => {
                   <h2 className="text-lg font-semibold mb-4">{section}</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {items.map((item, index) => (
-                      <Link href={item.link}>
+                      <Link href={item.link} key={index}>
                       <div
                         key={index}
                         className="flex items-center space-x-3 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer"

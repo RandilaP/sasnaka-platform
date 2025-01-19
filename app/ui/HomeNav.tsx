@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   SignedIn,
@@ -43,7 +42,7 @@ export default function NavBar() {
             </SignedOut>
             <SignedIn>
               {(pathname === "/") ? (
-                <Button onClick={clickOnLetsGo}>Let's go</Button>
+                <Button onClick={clickOnLetsGo}>Let`&apos;`s go</Button>
               ) : (
                 <UserButton />
               )}

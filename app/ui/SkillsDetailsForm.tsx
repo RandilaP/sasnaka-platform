@@ -6,9 +6,7 @@ import {
   Card,
   CardContent,
   CardFooter,
-  CardDescription,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
@@ -141,7 +139,12 @@ function SkillsDetailsForm() {
     resolver: zodResolver(formSchema),
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await addSkillsDetails(values);
+    await addSkillsDetails({
+      ...values,
+      leadership_experience: values.leadership_experience || "",
+      acheivements: values.acheivements || "",
+      interested_areas: values.interested_areas || "",
+    });
     console.log(values);
   }
 
