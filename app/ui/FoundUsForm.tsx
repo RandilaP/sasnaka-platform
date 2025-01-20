@@ -29,27 +29,27 @@ import { addFoundUsDetails } from "../lib/actions";
 
 const aboutUs = [
   {
-    id: "school",
+    id: "School",
     label: "School",
   },
   {
-    id: "friends",
+    id: "Friends/Family",
     label: "Friends/Family",
   },
   {
-    id: "socialMedia",
+    id: "Social Media",
     label: "Social Media",
   },
   {
-    id: "edutalk",
+    id: "EduTalk",
     label: "EduTalk",
   },
   {
-    id: "practicalWorkshop",
+    id: "Practical Workshop",
     label: "Practical Workshop",
   },
   {
-    id: "other",
+    id: "Other",
     label: "Other",
   },
 ] as const;

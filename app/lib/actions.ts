@@ -24,19 +24,18 @@ export async function addGeneralDetails(data: GeneralDetails) {
       .from("members")
       .select("id")
       .eq("user_id", userId)
-      .single();
+      .maybeSingle();
 
     if (error) {
       console.error("Error checking userId:", error);
       return false;
     }
 
-    const userExists = !!memberData;
-    if (!userExists) {
+    if (!memberData) {
       await supabase.from("members").insert([{ ...data, user_id: userId }]);
       redirectPath = "/forms/educational-details";
     } else {
-      await supabase.from("members").update(data).eq('user_id', userId);
+      await supabase.from("members").update(data).eq("user_id", userId);
       redirectPath = "/forms/educational-details";
     }
   } catch (error) {
@@ -149,7 +148,7 @@ export async function addFoundUsDetails(data: FoundUsDetails) {
   try {
     await supabase
       .from("members")
-      .update({ ...data, status: "pending" })
+      .update({ ...data, application: "pending" })
       .eq("user_id", userId);
     redirectPath = "/dashboard";
   } catch (error) {
@@ -160,11 +159,23 @@ export async function addFoundUsDetails(data: FoundUsDetails) {
 }
 
 export async function clickOnLetsGo() {
-  let redirectPath = null;
-  const { userId, redirectToSignIn } = await auth();
-
-  if (!userId) return redirectToSignIn();
-
-  redirectPath = "/dashboard";
-  redirect(redirectPath);
-}
+    const { userId, redirectToSignIn } = await auth();
+    const supabase = await createClient();
+    if (!userId) return { redirectPath: redirectToSignIn() };
+  
+    try {
+      const { data: memberData } = await supabase
+        .from("members")
+        .select("id")
+        .eq("user_id", userId)
+        .maybeSingle();
+  
+      if (!memberData) {
+        return { redirectPath: "/forms/genaral-details" };
+      } else {
+        return { redirectPath: "/dashboard" };
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  }

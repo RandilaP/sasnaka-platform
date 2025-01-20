@@ -57,7 +57,7 @@ function ContactDetailsForm() {
                 render={({ field }) => (
                   <FormItem className="space-y-2 p-2">
                     <FormLabel htmlFor="guardian_name">
-                      Father`&apos;`s ` Mother`&apos;`s / Guardian`&apos;`s Name
+                      Father&apos;s  Mother&apos;s / Guardian&apos;s Name
                     </FormLabel>
                     <FormDescription>
                       Mention name of your father, mother or guardian.

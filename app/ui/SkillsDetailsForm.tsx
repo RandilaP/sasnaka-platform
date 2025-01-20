@@ -31,81 +31,81 @@ import { addSkillsDetails } from "../lib/actions";
 
 const aestheticSkills = [
   {
-    id: "music",
+    id: "Music",
     label: "Music",
   },
   {
-    id: "dancing",
+    id: "Dancing",
     label: "Dancing",
   },
   {
-    id: "art",
+    id: "Art",
     label: "Art",
   },
   {
-    id: "drama",
+    id: "Drama",
     label: "Drama",
   },
   {
-    id: "literature",
+    id: "Literature",
     label: "Literature",
   },
 ] as const;
 
 const computerSkills = [
   {
-    id: "msOffice",
+    id: "MS office",
     label: "MS office",
   },
   {
-    id: "graphiDesign",
+    id: "Graphic Design",
     label: "Graphic Design",
   },
   {
-    id: "webDesigning",
+    id: "Web Designing",
     label: "Web Designing",
   },
   {
-    id: "softwareDeveloping",
+    id: "Software Developing",
     label: "Software Developing",
   },
   {
-    id: "other",
+    id: "Other",
     label: "Other",
   },
 ] as const;
 
 const mediaSkills = [
   {
-    id: "photography",
+    id: "Photography",
     label: "Photography",
   },
   {
-    id: "videography",
+    id: "Videography",
     label: "Videography",
   },
   {
-    id: "photoEditing",
+    id: "Photo Editing",
     label: "Photo Editing",
   },
   {
-    id: "videoEditing",
+    id: "Video Editing",
     label: "Video Editing",
   },
   {
-    id: "flyerDesigning",
+    id: "Flyer Designing",
     label: "Flyer Designing",
   },
   {
-    id: "announcing",
+    id: "Announcing",
     label: "Announcing",
   },
   {
-    id: "articleWriting",
+    id: "Article Writing",
     label: "Article Writing",
   },
   {
-    id: "other",
+    id: "Other",
     label: "Other",
   },
 ] as const;

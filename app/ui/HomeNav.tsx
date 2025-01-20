@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Button } from "@/components/ui/button";
 import {
   SignedIn,
@@ -11,15 +11,23 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { clickOnLetsGo } from "../lib/actions";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 
 
 export default function NavBar() {
+  const router = useRouter();
   const pathname = usePathname();
 
+    async function handleRedirect() {
+      const result = await clickOnLetsGo();
+      if (result && result.redirectPath) {
+        router.push(result.redirectPath);
+      }
+    }
+
   return (
-    <nav className="w-full border-b bg-white fixed">
+    <nav className="w-full border-b bg-white fixed z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -42,7 +50,7 @@ export default function NavBar() {
             </SignedOut>
             <SignedIn>
               {(pathname === "/") ? (
-                <Button onClick={clickOnLetsGo}>Let&apos;s go</Button>
+                <Button onClick={handleRedirect}>Let&apos;s go</Button>
               ) : (
                 <UserButton />
               )}
