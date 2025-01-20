@@ -4,7 +4,7 @@ import { FileBadge } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import SkillsDetailsForm from "@/app/ui/SkillsDetailsForm";
 
-function page() {
+function Page() {
   const [progress, setProgress] = useState(40);
 
   useEffect(() => {
@@ -29,4 +29,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
