@@ -7,7 +7,6 @@ import {
   } from "@/components/ui/select"
   import { Input } from "@/components/ui/input"
   import { Button } from "@/components/ui/button"
-import { SearchBar } from "./SearchBar"
   
   export function FilterSidebar() {
     return (

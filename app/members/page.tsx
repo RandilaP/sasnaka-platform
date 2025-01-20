@@ -1,7 +1,6 @@
 // app/page.tsx
 import { VolunteerCard } from "../ui/VolunteerCard";
 import { FilterSidebar } from "../ui/FilterSidebar";
-import { SearchBar } from "../ui/SearchBar";
 
 const volunteers = [
   { name: "A Perera", level: 1, memberCount: 150 },

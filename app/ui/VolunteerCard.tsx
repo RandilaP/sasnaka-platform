@@ -8,7 +8,7 @@ interface VolunteerCardProps {
   memberCount: number
 }
 
-export function VolunteerCard({ name, level, memberCount }: VolunteerCardProps) {
+export function VolunteerCard({ name, level, }: VolunteerCardProps) {
   return (
     <Card className="w-full max-w-sm">
       <CardContent className="pt-6 flex flex-col items-center">
