@@ -119,8 +119,9 @@ const DashboardPage = () => {
         router.push("/forms/genaral-details")
       ) : (
         status && (
-          <div className="h-screen w-screen flex justify-center items-center">
-            <p>Pending</p>
+          <div className="h-screen w-screen flex justify-center items-center flex-col space-y-2">
+            <div className="loader"></div>
+            <p>Your Application is still processing...</p>
           </div>
         )
       )}
