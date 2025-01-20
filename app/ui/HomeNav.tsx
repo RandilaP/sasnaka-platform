@@ -19,7 +19,7 @@ export default function NavBar() {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full border-b bg-white">
+    <nav className="w-full border-b bg-white fixed">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -34,7 +34,7 @@ export default function NavBar() {
           <div className="flex items-center space-x-4">
             <SignedOut>
               <Button>
-                <SignInButton forceRedirectUrl={"/forms/genaral-details"} />
+                <SignInButton forceRedirectUrl={"/dashboard"} />
               </Button>
               <Button>
                 <SignUpButton forceRedirectUrl={"/forms/genaral-details"} />
@@ -42,7 +42,7 @@ export default function NavBar() {
             </SignedOut>
             <SignedIn>
               {(pathname === "/") ? (
-                <Button onClick={clickOnLetsGo}>Let`&apos;`s go</Button>
+                <Button onClick={clickOnLetsGo}>Let&apos;s go</Button>
               ) : (
                 <UserButton />
               )}

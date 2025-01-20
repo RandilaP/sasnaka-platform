@@ -2,7 +2,6 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { auth } from "@clerk/nextjs/server";
-import { revalidatePath } from "next/cache";
 
 export async function getVolunteerData() {
   const supabase = await createClient();
@@ -28,13 +27,31 @@ export async function getPendingVolunteersData() {
   }
 }
 
-export async function changeVolunteerStatus(id: number, status: string) {
-    const supabase = await createClient();
-    try {
-        const response = await supabase.from("members").update({ application: status }).eq("id", id);
-        revalidatePath('/volunteers/approval');
-        return response;
-    } catch (e) {
-        console.log("error: ", e);
-    }
+export async function changeVolunteerStatus(status: string) {
+  const supabase = await createClient();
+  const { userId } = await auth();
+  try {
+    const response = await supabase
+      .from("members")
+      .update({ application: status })
+      .eq("user_id", userId);
+
+    return response;
+  } catch (e) {
+    console.log("error: ", e);
+  }
+}
+
+export async function getVolunteerStatus() {
+  const supabase = await createClient();
+  const { userId } = await auth();
+  try {
+    const response = supabase
+      .from("members")
+      .select("application")
+      .eq("user_id", userId);
+    return response;
+  } catch (e) {
+    console.log("error: ", e);
+  }
 }
