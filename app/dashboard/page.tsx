@@ -22,7 +22,7 @@ const DashboardPage = () => {
       {
         icon: <Users className="h-5 w-5" />,
         text: "Members Directory",
-        link: "/dashboard",
+        link: "/members",
       },
       {
         icon: <UserPlus className="h-5 w-5" />,
@@ -62,7 +62,7 @@ const DashboardPage = () => {
   };
   const [status, setStatus] = React.useState<string | null>(null);
   const router = useRouter();
-  
+
   React.useEffect(() => {
     getVolunteerStatus().then((response) => {
       if (response && response.data && response.data.length > 0) {
@@ -117,18 +117,17 @@ const DashboardPage = () => {
           </Button>
         </div>
       ) : status && status == "incomplete" ? (
-              router.push("/forms/genaral-details"),
-              null
-            ) : 
-              status && status=="pending"?(
-                <div className="h-screen w-screen flex justify-center items-center flex-col space-y-2">
-                  <div className="loader"></div>
-                  <p>Your Application is still processing...</p>
-                </div>
-              )
-            :(<div>
-              <p>Something went wrong</p>
-            </div>)}
+        (router.push("/forms/genaral-details"), null)
+      ) : status && status == "pending" ? (
+        <div className="h-screen w-screen flex justify-center items-center flex-col space-y-2">
+          <div className="loader"></div>
+          <p>Your Application is still processing...</p>
+        </div>
+      ) : (
+        <div>
+          <p>Something went wrong</p>
+        </div>
+      )}
     </div>
   );
 };
