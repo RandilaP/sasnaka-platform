@@ -60,8 +60,9 @@ const DashboardPage = () => {
       },
     ],
   };
-  const [status, setStatus] = React.useState<string | null>(null);
+  const [status, setStatus] = React.useState<string | null>('pending');
   const router = useRouter();
+  
   React.useEffect(() => {
     getVolunteerStatus().then((response) => {
       if (response && response.data && response.data.length > 0) {
