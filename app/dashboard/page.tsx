@@ -60,7 +60,7 @@ const DashboardPage = () => {
       },
     ],
   };
-  const [status, setStatus] = React.useState<string | null>('pending');
+  const [status, setStatus] = React.useState<string | null>(null);
   const router = useRouter();
   
   React.useEffect(() => {
@@ -85,7 +85,7 @@ const DashboardPage = () => {
   };
 
   return (
-    <>
+    <div>
       {status && status == "accepted" ? (
         <div className="min-h-screen bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -117,16 +117,19 @@ const DashboardPage = () => {
           </Button>
         </div>
       ) : status && status == "incomplete" ? (
-        router.push("/forms/genaral-details")
-      ) : (
-        status && (
-          <div className="h-screen w-screen flex justify-center items-center flex-col space-y-2">
-            <div className="loader"></div>
-            <p>Your Application is still processing...</p>
-          </div>
-        )
-      )}
-    </>
+              router.push("/forms/genaral-details"),
+              null
+            ) : 
+              status && status=="pending"?(
+                <div className="h-screen w-screen flex justify-center items-center flex-col space-y-2">
+                  <div className="loader"></div>
+                  <p>Your Application is still processing...</p>
+                </div>
+              )
+            :(<div>
+              <p>Something went wrong</p>
+            </div>)}
+    </div>
   );
 };
 
