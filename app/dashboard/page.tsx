@@ -74,7 +74,7 @@ const DashboardPage = () => {
 
   const handleClick = () => {
     try {
-      changeVolunteerStatus("pending").then((response) => {
+      changeVolunteerStatus("pending", ).then((response) => {
         if (response) {
           setStatus("pending");
         }

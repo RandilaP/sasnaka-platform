@@ -27,6 +27,20 @@ export async function getPendingVolunteersData() {
   }
 }
 
+export async function changeVolunteerTableStatus(status: string, id: number) {
+  const supabase = await createClient();
+  try {
+    const response = await supabase
+      .from("members")
+      .update({ application: status })
+      .eq("id", id);
+
+    return response;
+  } catch (e) {
+    console.log("error: ", e);
+  }
+}
+
 export async function changeVolunteerStatus(status: string) {
   const supabase = await createClient();
   const { userId } = await auth();

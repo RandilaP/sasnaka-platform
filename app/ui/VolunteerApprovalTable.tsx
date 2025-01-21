@@ -22,7 +22,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import {
-  changeVolunteerStatus,
+  changeVolunteerTableStatus,
   getPendingVolunteersData,
 } from "../lib/volunteerData";
 import { Button } from "@/components/ui/button";
@@ -225,14 +225,14 @@ function VolunteerApprovalTable() {
                     <AlertDialogFooter>
                       <AlertDialogAction
                         onClick={async () =>
-                          await changeVolunteerStatus("rejected")
+                          await changeVolunteerTableStatus("rejected", volunteer.id)
                         }
                       >
                         Reject
                       </AlertDialogAction>
                       <AlertDialogAction
                         onClick={async () =>
-                          await changeVolunteerStatus("accepted")
+                          await changeVolunteerTableStatus("accepted", volunteer.id)
                         }
                       >
                         Approve
