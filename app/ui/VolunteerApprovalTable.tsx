@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { CircleX } from "lucide-react";
 import { VolunteerData } from "../lib/model";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 function VolunteerApprovalTable() {
   const [volunteers, setVolunteers] = useState<VolunteerData[]>([]);
 
@@ -65,11 +66,15 @@ function VolunteerApprovalTable() {
           {volunteers.map((volunteer) => (
             <TableRow key={volunteer.id}>
               <TableCell>
-                <img
-                  src={volunteer.profile_image}
-                  alt={volunteer.name}
-                  className="w-9 h-9 rounded-full"
-                />
+                <Avatar>
+                  <AvatarImage
+                    src={volunteer.profile_image}
+                    alt={volunteer.name}
+                  />
+                  <AvatarFallback className="bg-gray-200">
+                    {volunteer.name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
               </TableCell>
               <TableCell>{volunteer.name}</TableCell>
               <TableCell>{volunteer.nic}</TableCell>

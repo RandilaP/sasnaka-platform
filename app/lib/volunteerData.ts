@@ -9,9 +9,13 @@ export async function getVolunteerData() {
   return supabase.from("members").select("*").eq("user_id", userId);
 }
 
-export async function getVolunteersData() {
+export async function getVolunteersData(query: string, page: number, district: string) {
   const supabase = await createClient();
-  return supabase.from("members").select("*");
+  if (district === "all") {
+    return supabase.from("members").select("*").ilike("name", `%${query}%`).eq("application", "accepted");
+  }else{
+  return supabase.from("members").select("*").ilike("name", `%${query}%`).eq("application", "accepted").eq("district", district)
+  }
 }
 
 export async function getPendingVolunteersData() {
