@@ -74,7 +74,7 @@ const DashboardPage = () => {
 
   const handleClick = () => {
     try {
-      changeVolunteerStatus("pending", ).then((response) => {
+      changeVolunteerStatus("pending").then((response) => {
         if (response) {
           setStatus("pending");
         }
@@ -111,7 +111,14 @@ const DashboardPage = () => {
         </div>
       ) : status && status == "rejected" ? (
         <div className="h-screen w-screen flex justify-center items-center flex-col">
-          <p> Rejected</p>
+          <p className="text-center w-1/2 mt-4">
+            {" "}
+            Unfortunately, your application has been rejected. However, you’re
+            welcome to reapply by clicking the button below or reach out to our
+            team for further assistance. If you have any questions or need
+            clarification, feel free to contact us. We appreciate your interest
+            and look forward to your next submission!
+          </p>
           <Button className="mt-4" onClick={handleClick}>
             Apply
           </Button>
@@ -121,7 +128,13 @@ const DashboardPage = () => {
       ) : status && status == "pending" ? (
         <div className="h-screen w-screen flex justify-center items-center flex-col space-y-2">
           <div className="loader"></div>
-          <p>Your Application is still processing...</p>
+          <p className="text-center w-1/2 mt-4">
+            Your application is still under review. Our team is currently
+            processing submissions, and we appreciate your patience during this
+            time. You will receive a notification once a decision has been made.
+            If you have any questions or need further assistance, feel free to
+            reach out to our support team. Thank you for your interest!
+          </p>
         </div>
       ) : (
         <div>

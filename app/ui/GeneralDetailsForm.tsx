@@ -2,9 +2,6 @@
 
 import React from "react";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
-
-import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -12,11 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -34,7 +26,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { ArrowRight } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -50,7 +41,7 @@ const formSchema = z.object({
     required_error: "Please enter your first name",
   }),
   lname: z.string({ required_error: "Please enter your last name" }),
-  dob: z.date({ required_error: "Please select your date of birth" }),
+  dob: z.string({ required_error: "Please select your date of birth" }),
   gender: z.enum(["male", "female"], {
     required_error: "Please select your gender",
   }),
@@ -115,7 +106,7 @@ function GeneralDetailsForm() {
     resolver: zodResolver(formSchema),
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await addGeneralDetails({ ...values, dob: values.dob.toISOString() });
+    await addGeneralDetails({ ...values});
     console.log(values);
   }
 
@@ -221,7 +212,7 @@ function GeneralDetailsForm() {
                   <FormItem className="space-y-2 p-2">
                     <FormLabel htmlFor="dob">Date of Birth</FormLabel>
                     <FormDescription>Select your date of birth</FormDescription>
-                    <Popover>
+                    {/* <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
@@ -251,7 +242,8 @@ function GeneralDetailsForm() {
                           initialFocus
                         />
                       </PopoverContent>
-                    </Popover>
+                    </Popover> */}
+                    <Input type="date" value={field.value ? format(field.value, "yyyy-MM-dd") : ""} onChange={field.onChange} onBlur={field.onBlur} name={field.name} ref={field.ref} />
                     <FormMessage />
                   </FormItem>
                 )}

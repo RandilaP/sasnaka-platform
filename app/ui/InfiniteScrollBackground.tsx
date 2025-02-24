@@ -5,7 +5,6 @@ import { useRef } from "react";
 const SCROLL_DURATION = 40;
 
 const ImageGrid = () => {
-  // Replace these with your actual image URLs
   const images = [
     "/bg1.jpeg",
     "/bg2.jpeg",
@@ -23,7 +22,6 @@ const ImageGrid = () => {
 
   return (
     <>
-      {/* First set of images */}
       {images.map((img, index) => (
         <motion.div
           key={`first-${index}`}
@@ -38,7 +36,6 @@ const ImageGrid = () => {
           />
         </motion.div>
       ))}
-      {/* Duplicate set for seamless loop */}
       {images.map((img, index) => (
         <motion.div
           key={`second-${index}`}
@@ -66,7 +63,7 @@ const InfiniteScrollBackground = () => {
       className="fixed inset-0 w-full h-full overflow-hidden -z-10 bg-[#0098DA]/70"
     >
       <motion.div 
-        className="grid grid-cols-4 gap-4 p-4"
+        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4"
         initial={{ y: 0 }}
         animate={{ y: "-50%" }}
         transition={{

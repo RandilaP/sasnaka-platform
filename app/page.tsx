@@ -2,6 +2,7 @@
 import InfiniteScrollBackground from "./ui/InfiniteScrollBackground";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const fadeInUp = {
   initial: { y: 30, opacity: 0 },
@@ -62,13 +63,10 @@ export default function Home() {
             variants={fadeInUp}
             transition={{ duration: 0.5, delay: 0.8 }}
           >
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button className="mt-4">
-                Join Us
-              </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link href="/dashboard">
+                <Button className="mt-4">Join Us</Button>
+              </Link>
             </motion.div>
           </motion.div>
         </motion.div>
